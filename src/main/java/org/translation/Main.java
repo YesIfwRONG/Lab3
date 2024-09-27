@@ -77,7 +77,9 @@ public class Main {
         coutryNames.sort(String::compareTo);
         // System.out.println(countries);
 
-        System.out.println(coutryNames);
+        for (String cName: coutryNames) {
+            System.out.println(cName);
+        }
 
         System.out.println("select a country from above:");
 
@@ -100,8 +102,9 @@ public class Main {
         langName.sort(String::compareTo);
 
         // System.out.println(languages);
-
-        System.out.println(langName);
+        for (String lName: langName) {
+            System.out.println(lName);
+        }
 
         System.out.println("select a language from above:");
 
