@@ -4,18 +4,17 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.List;
-// TODO CheckStyle: Wrong lexicographical order for 'java.util.HashMap' import (remove this comment once resolved)
 import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 /**
  * This class provides the service of converting country codes to their names.
  */
 public class CountryCodeConverter {
-
-    // TODO Task: pick appropriate instance variable(s) to store the data necessary for this class
-
+    private Map<String, String> code3ToCountry;
+    private Map<String, String> countryToCode3;
     /**
      * Default constructor which will load the country codes from "country-codes.txt"
      * in the resources folder.
@@ -30,12 +29,27 @@ public class CountryCodeConverter {
      * @throws RuntimeException if the resource file can't be loaded properly
      */
     public CountryCodeConverter(String filename) {
+        code3ToCountry = new HashMap<>();
+        countryToCode3 = new HashMap<>();
 
         try {
             List<String> lines = Files.readAllLines(Paths.get(getClass()
                     .getClassLoader().getResource(filename).toURI()));
 
-            // TODO Task: use lines to populate the instance variable(s)
+            for (int i = 1; i < lines.size(); i++) {
+                String[] parts = lines.get(i).split("\t");
+                if (parts.length >= 4) {
+                    String countryName = parts[0];
+                    String alpha3Code = parts[2].toLowerCase();
+
+                    // Populate the map with Alpha-3 code as key and country name as value
+                    code3ToCountry.put(alpha3Code.trim(), countryName.trim());
+                    // another map for looking backwards
+                    countryToCode3.put(countryName.trim(), alpha3Code.trim());
+
+
+                }
+            }
 
         }
         catch (IOException | URISyntaxException ex) {
@@ -50,8 +64,7 @@ public class CountryCodeConverter {
      * @return the name of the country corresponding to the code
      */
     public String fromCountryCode(String code) {
-        // TODO Task: update this code to use an instance variable to return the correct value
-        return code;
+        return code3ToCountry.get(code);
     }
 
     /**
@@ -60,8 +73,7 @@ public class CountryCodeConverter {
      * @return the 3-letter code of the country
      */
     public String fromCountry(String country) {
-        // TODO Task: update this code to use an instance variable to return the correct value
-        return country;
+        return countryToCode3.get(country);
     }
 
     /**
@@ -69,7 +81,6 @@ public class CountryCodeConverter {
      * @return how many countries are included in this code converter.
      */
     public int getNumCountries() {
-        // TODO Task: update this code to use an instance variable to return the correct value
-        return 0;
+        return countryToCode3.size();
     }
 }
