@@ -3,7 +3,6 @@ package org.translation;
 import java.util.ArrayList;
 import java.util.List;
 
-
 // Extra Task: if your group has extra time, you can add support for another country code in this class.
 
 /**
@@ -27,8 +26,8 @@ public class InLabByHandTranslator implements Translator {
             return new ArrayList<>(List.of("de", "en", "zh", "es", "fr"));
         }
         return new ArrayList<>();
-    }
 
+    }
 
     /**
      * Returns the country abbreviations for all countries whose translations are

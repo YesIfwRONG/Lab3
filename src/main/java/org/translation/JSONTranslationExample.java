@@ -47,7 +47,8 @@ public class JSONTranslationExample {
      */
     public String getCountryNameTranslation(String countryCode, String languageCode) {
         for (Object ob : jsonArray) {
-            JSONObject jsonObject = (JSONObject) ob; // Casting from Object to JSONObject
+            // Casting from Object to JSONObject
+            JSONObject jsonObject = (JSONObject) ob;
             if (jsonObject.getString("alpha3").equals(countryCode)) {
                 return jsonObject.getString(languageCode);
             }

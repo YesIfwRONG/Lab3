@@ -6,7 +6,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -19,6 +18,7 @@ public class CountryCodeConverter {
      * Default constructor which will load the country codes from "country-codes.txt"
      * in the resources folder.
      */
+
     public CountryCodeConverter() {
         this("country-codes.txt");
     }
@@ -35,20 +35,16 @@ public class CountryCodeConverter {
         try {
             List<String> lines = Files.readAllLines(Paths.get(getClass()
                     .getClassLoader().getResource(filename).toURI()));
-
             for (int i = 1; i < lines.size(); i++) {
                 String[] parts = lines.get(i).split("\t");
-                if (parts.length >= 4) {
-                    String countryName = parts[0];
-                    String alpha3Code = parts[2].toLowerCase();
+                String countryName = parts[0];
+                String alpha3Code = parts[2].toLowerCase();
 
-                    // Populate the map with Alpha-3 code as key and country name as value
-                    code3ToCountry.put(alpha3Code.trim(), countryName.trim());
-                    // another map for looking backwards
-                    countryToCode3.put(countryName.trim(), alpha3Code.trim());
+                // Populate the map with Alpha-3 code as key and country name as value
+                code3ToCountry.put(alpha3Code.trim(), countryName.trim());
+                // another map for looking backwards
+                countryToCode3.put(countryName.trim(), alpha3Code.trim());
 
-
-                }
             }
 
         }

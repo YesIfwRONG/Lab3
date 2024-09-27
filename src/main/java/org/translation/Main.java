@@ -21,8 +21,8 @@ public class Main {
      * @param args not used by the program
      */
     public static void main(String[] args) {
-         Translator translator = new JSONTranslator();
-//        Translator translator = new InLabByHandTranslator();
+        Translator translator = new JSONTranslator();
+        // Translator translator = new InLabByHandTranslator();
 
         runProgram(translator);
     }
@@ -75,7 +75,7 @@ public class Main {
             coutryNames.add(converter.fromCountryCode(country));
         }
         coutryNames.sort(String::compareTo);
-//        System.out.println(countries);
+        // System.out.println(countries);
 
         System.out.println(coutryNames);
 
@@ -99,7 +99,7 @@ public class Main {
         }
         langName.sort(String::compareTo);
 
-//        System.out.println(languages);
+        // System.out.println(languages);
 
         System.out.println(langName);
 

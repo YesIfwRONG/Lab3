@@ -4,7 +4,10 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -18,6 +21,7 @@ public class JSONTranslator implements Translator {
     private final Map<String, Map<String, String>> translations;
     private final Map<String, String> codeToCountry;
     private final Map<String, String> countryToCode;
+
     /**
      * Constructs a JSONTranslator using data from the sample.json resources file.
      */
@@ -36,7 +40,7 @@ public class JSONTranslator implements Translator {
 
             String jsonString = Files.readString(Paths.get(getClass().getClassLoader().getResource(filename).toURI()));
 
-            JSONArray jsonArray = new JSONArray(jsonString);
+            final JSONArray jsonArray = new JSONArray(jsonString);
 
             this.countryLanguages = new HashMap<>();
             this.translations = new HashMap<>();
@@ -50,10 +54,8 @@ public class JSONTranslator implements Translator {
                 List<String> languages = new ArrayList<>();
                 Map<String, String> translates = new HashMap<>();
 
-                for(String i: jsonObject.keySet()) {
-                    if (!(i.equals("id"))
-                            && !(i.equals("alpha2"))
-                            && !(i.equals("alpha3"))) {
+                for (String i: jsonObject.keySet()) {
+                    if (!("id".equals(i)) && !("alpha2".equals(i)) && !("alpha3".equals(i))) {
                         languages.add(i);
                         translates.put(i, jsonObject.getString(i));
                     }
@@ -79,7 +81,7 @@ public class JSONTranslator implements Translator {
     @Override
     public List<String> getCountries() {
         List<String> countryCodeList = new ArrayList<>();
-        for(String i: countryLanguages.keySet()) {
+        for (String i: countryLanguages.keySet()) {
             countryCodeList.add(countryToCode.get(i));
         }
         return countryCodeList;
